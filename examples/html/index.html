@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>multiselect-kit — HTML</title>
+    <script type="module">
+      import '@poluru-labs/multiselect-kit';
+
+      const el = document.querySelector('ms-multiselect');
+      el.options = [
+        { value: 'design', label: 'Design' },
+        { value: 'eng', label: 'Engineering' },
+        { value: 'ops', label: 'Operations', disabled: true },
+      ];
+      el.addEventListener('change', (event) => {
+        console.log(event.detail.value);
+      });
+    </script>
+  </head>
+  <body>
+    <ms-multiselect
+      label="Departments"
+      placeholder="Select departments"
+      name="departments"
+    ></ms-multiselect>
+  </body>
+</html>

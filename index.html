@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>multiselect-kit playground</title>
+    <style>
+      :root { color-scheme: light; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        background: #f6f7f9;
+        color: #1c2430;
+      }
+      main {
+        max-width: 640px;
+        margin: 48px auto;
+        padding: 0 20px 64px;
+      }
+      h1 { font-size: 1.5rem; margin-bottom: 8px; }
+      p { color: #667085; }
+      ms-multiselect { margin-top: 20px; }
+      #output {
+        margin-top: 16px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13px;
+        color: #344054;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>multiselect-kit</h1>
+      <p>Accessible, lightweight, and customizable multi-select component kit for modern web apps.</p>
+      <ms-multiselect
+        label="Favorite produce"
+        placeholder="Search fruits and vegetables"
+        name="produce"
+        clearable
+        searchable
+        multiple
+      ></ms-multiselect>
+      <div id="output">[]</div>
+    </main>
+    <script type="module" src="/src/playground.ts"></script>
+  </body>
+</html>

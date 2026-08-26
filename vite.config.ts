@@ -9,6 +9,11 @@ const isStorybook = process.argv.some(
 );
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@poluru-labs/multiselect-kit': resolve(rootDir, 'src/index.ts'),
+    },
+  },
   build: isStorybook
     ? {}
     : {

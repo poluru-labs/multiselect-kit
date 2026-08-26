@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>multiselect-kit — Bootstrap 5</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <style>
+      /*
+        Map ms-multiselect to Bootstrap 5 form tokens so it sits next to
+        .form-control / .form-select. Copy this block into your app CSS.
+      */
+      ms-multiselect.form-ms {
+        --ms-font-family: var(--bs-body-font-family);
+        --ms-font-size: 1rem;
+        --ms-radius: var(--bs-border-radius);
+        --ms-chip-radius: var(--bs-border-radius-sm);
+        --ms-control-min-height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
+        --ms-control-padding: 0.25rem 0.5rem;
+        --ms-control-bg: var(--bs-body-bg);
+        --ms-control-border: var(--bs-border-width) solid var(--bs-border-color);
+        --ms-control-shadow: none;
+        --ms-text: var(--bs-body-color);
+        --ms-muted: var(--bs-secondary-color);
+        --ms-accent: var(--bs-primary);
+        --ms-accent-soft: var(--bs-primary-bg-subtle);
+        --ms-chip-bg: var(--bs-secondary-bg);
+        --ms-chip-text: var(--bs-body-color);
+        --ms-option-hover: var(--bs-tertiary-bg);
+        --ms-option-active: var(--bs-primary-bg-subtle);
+        --ms-list-bg: var(--bs-body-bg);
+        --ms-list-border: var(--bs-border-width) solid var(--bs-border-color);
+        --ms-list-shadow: var(--bs-box-shadow);
+        --ms-focus-ring: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+      }
+
+      ms-multiselect.form-ms::part(label) {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      ms-multiselect.form-ms-sm {
+        --ms-font-size: 0.875rem;
+        --ms-control-min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
+        --ms-control-padding: 0.15rem 0.4rem;
+        --ms-radius: var(--bs-border-radius-sm);
+      }
+
+      ms-multiselect.form-ms-lg {
+        --ms-font-size: 1.25rem;
+        --ms-control-min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
+        --ms-control-padding: 0.35rem 0.65rem;
+        --ms-radius: var(--bs-border-radius-lg);
+      }
+
+      ms-multiselect.is-invalid {
+        --ms-control-border: var(--bs-border-width) solid var(--bs-form-invalid-border-color);
+        --ms-focus-ring: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+        --ms-accent: var(--bs-danger);
+      }
+
+      ms-multiselect.is-valid {
+        --ms-control-border: var(--bs-border-width) solid var(--bs-form-valid-border-color);
+        --ms-focus-ring: 0 0 0 0.25rem rgba(var(--bs-success-rgb), 0.25);
+      }
+    </style>
+    <script type="module">
+      // In an app with the package installed:
+      import '@poluru-labs/multiselect-kit';
+      // From this repo after `npm run build`, you can also:
+      // import '../../dist/index.js';
+
+      const departments = [
+        { value: 'design', label: 'Design', group: 'Product' },
+        { value: 'eng', label: 'Engineering', group: 'Product', description: 'Platform and apps' },
+        { value: 'ops', label: 'Operations', group: 'Business', disabled: true },
+        { value: 'sales', label: 'Sales', group: 'Business' },
+        { value: 'support', label: 'Support', group: 'Business' },
+      ];
+
+      const skills = [
+        { value: 'typescript', label: 'TypeScript' },
+        { value: 'python', label: 'Python' },
+        { value: 'sql', label: 'SQL' },
+        { value: 'figma', label: 'Figma' },
+        { value: 'k8s', label: 'Kubernetes' },
+      ];
+
+      const regions = [
+        { value: 'na', label: 'North America' },
+        { value: 'eu', label: 'Europe' },
+        { value: 'apac', label: 'Asia Pacific' },
+        { value: 'latam', label: 'Latin America' },
+      ];
+
+      const teams = document.querySelector('#teams');
+      const skillsEl = document.querySelector('#skills');
+      const region = document.querySelector('#region');
+      const output = document.querySelector('#output');
+      const form = document.querySelector('#filters');
+
+      teams.options = departments;
+      teams.value = ['eng', 'design'];
+
+      skillsEl.options = skills;
+
+      region.options = regions;
+
+      function render() {
+        const selected = [
+          ...teams.getSelectedOptions().map((o) => o.label),
+          ...skillsEl.getSelectedOptions().map((o) => o.label),
+          ...region.getSelectedOptions().map((o) => o.label),
+        ];
+        output.innerHTML = selected.length
+          ? selected.map((label) => `<span class="badge text-bg-primary me-1">${label}</span>`).join('')
+          : '<span class="text-secondary">Nothing selected</span>';
+      }
+
+      for (const el of [teams, skillsEl, region]) {
+        el.addEventListener('change', render);
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        teams.classList.toggle('is-invalid', teams.getSelectedOptions().length === 0);
+        teams.classList.toggle('is-valid', teams.getSelectedOptions().length > 0);
+        render();
+      });
+
+      render();
+    </script>
+  </head>
+  <body class="bg-body-tertiary">
+    <main class="container py-5" style="max-width: 40rem">
+      <h1 class="h3 mb-1">multiselect-kit + Bootstrap 5</h1>
+      <p class="text-secondary mb-4">
+        Theme <code>ms-multiselect</code> with Bootstrap CSS variables so it matches
+        <code>.form-select</code> in a standard form.
+      </p>
+
+      <form id="filters" class="card shadow-sm">
+        <div class="card-body">
+          <div class="mb-3">
+            <ms-multiselect
+              id="teams"
+              class="form-ms"
+              label="Departments"
+              placeholder="Select departments"
+              name="departments"
+              searchable
+              clearable
+              multiple
+            ></ms-multiselect>
+            <div class="form-text">Searchable chips. Operations is disabled.</div>
+          </div>
+
+          <div class="mb-3">
+            <ms-multiselect
+              id="skills"
+              class="form-ms form-ms-sm"
+              label="Skills"
+              placeholder="Pick up to 3"
+              name="skills"
+              searchable
+              max-selected="3"
+            ></ms-multiselect>
+            <div class="form-text">Small size via <code>.form-ms-sm</code>, capped at 3.</div>
+          </div>
+
+          <div class="mb-3">
+            <ms-multiselect
+              id="region"
+              class="form-ms"
+              label="Region"
+              placeholder="Pick one region"
+              name="region"
+              multiple="false"
+            ></ms-multiselect>
+            <div class="form-text">Single-select (<code>multiple="false"</code>).</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="native-multi">Native Bootstrap</label>
+            <select id="native-multi" class="form-select" multiple size="4">
+              <option>Design</option>
+              <option selected>Engineering</option>
+              <option>Sales</option>
+              <option>Support</option>
+            </select>
+            <div class="form-text">
+              Browser <code>&lt;select multiple&gt;</code> for comparison — no chips or search.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Apply filters</button>
+        </div>
+      </form>
+
+      <div class="mt-3">
+        <div class="small text-secondary mb-1">Selected from the kit</div>
+        <div id="output"></div>
+      </div>
+    </main>
+  </body>
+</html>

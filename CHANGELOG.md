@@ -4,6 +4,10 @@ All notable changes to `@poluru-labs/multiselect-kit` are documented in this fil
 
 ## [Unreleased]
 
+### Added
+
+- Bootstrap 5 example (`examples/bootstrap/index.html`) that themes `ms-multiselect` with Bootstrap form tokens
+
 ## [1.0.0] — 2026-08-22
 
 ### Added

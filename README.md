@@ -2,7 +2,7 @@
 
 Accessible, lightweight, and customizable multi-select component kit for modern web apps.
 
-`@poluru-labs/multiselect-kit` is a framework-agnostic **Web Component**. Use it in plain HTML, React, Vue, Angular, Svelte, Next.js, Nuxt, Astro, and any other DOM environment.
+`@poluru-labs/multiselect-kit` is a framework-agnostic **Web Component**. Use it in plain HTML, Bootstrap, React, Vue, Angular, Svelte, Next.js, Nuxt, Astro, and any other DOM environment.
 
 - Zero React/Vue/Angular runtime dependency
 - TypeScript + ESM
@@ -210,6 +210,37 @@ Add `CUSTOM_ELEMENTS_SCHEMA` and import `@poluru-labs/multiselect-kit` once (for
   onMount(() => { host.options = [{ value: 'eng', label: 'Engineering' }]; });
 </script>
 <ms-multiselect bind:this={host} label="Team"></ms-multiselect>
+```
+
+### Bootstrap 5
+
+Load Bootstrap CSS, then map the control to Bootstrap form tokens. Full form (multiple, max selected, single-select, native comparison) is in `examples/bootstrap/index.html`.
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+/>
+
+<style>
+  ms-multiselect.form-ms {
+    --ms-font-family: var(--bs-body-font-family);
+    --ms-radius: var(--bs-border-radius);
+    --ms-accent: var(--bs-primary);
+    --ms-control-bg: var(--bs-body-bg);
+    --ms-control-border: var(--bs-border-width) solid var(--bs-border-color);
+    --ms-focus-ring: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+  }
+</style>
+
+<form class="mb-3">
+  <ms-multiselect
+    class="form-ms"
+    label="Teams"
+    placeholder="Select teams"
+    name="teams"
+  ></ms-multiselect>
+</form>
 ```
 
 ### Optional helper

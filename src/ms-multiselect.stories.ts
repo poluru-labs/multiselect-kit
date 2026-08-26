@@ -96,3 +96,21 @@ export const Themed: Story = {
       el.value = ['beta'];
     }),
 };
+
+export const Bootstrap: Story = {
+  render: () =>
+    demo((el, wrap) => {
+      wrap.style.setProperty('--ms-font-family', 'system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif');
+      wrap.style.setProperty('--ms-radius', '0.375rem');
+      wrap.style.setProperty('--ms-chip-radius', '0.25rem');
+      wrap.style.setProperty('--ms-accent', '#0d6efd');
+      wrap.style.setProperty('--ms-accent-soft', '#cfe2ff');
+      wrap.style.setProperty('--ms-control-border', '1px solid #dee2e6');
+      wrap.style.setProperty('--ms-control-shadow', 'none');
+      wrap.style.setProperty('--ms-focus-ring', '0 0 0 0.25rem rgba(13, 110, 253, 0.25)');
+      wrap.style.setProperty('--ms-chip-bg', '#e9ecef');
+      el.label = 'Bootstrap 5';
+      el.placeholder = 'Select teams';
+      el.value = ['alpha', 'one'];
+    }),
+};

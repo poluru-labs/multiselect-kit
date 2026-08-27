@@ -2,7 +2,7 @@
 
 Accessible, lightweight, and customizable multi-select component kit for modern web apps.
 
-`@poluru-labs/multiselect-kit` is a framework-agnostic **Web Component**. Use it in plain HTML, Bootstrap, React, Vue, Angular, Svelte, Next.js, Nuxt, Astro, and any other DOM environment.
+`@poluru-labs/multiselect-kit` is a framework-agnostic **Web Component**. Use it in plain HTML, Bootstrap, Tailwind, React, Vue, Angular, Svelte, Next.js, Nuxt, Astro, and any other DOM environment.
 
 - Zero React/Vue/Angular runtime dependency
 - TypeScript + ESM
@@ -236,6 +236,34 @@ Load Bootstrap CSS, then map the control to Bootstrap form tokens. Full form (mu
 <form class="mb-3">
   <ms-multiselect
     class="form-ms"
+    label="Teams"
+    placeholder="Select teams"
+    name="teams"
+  ></ms-multiselect>
+</form>
+```
+
+### Tailwind CSS
+
+Load Tailwind, then map the control to Tailwind-like tokens (`rounded-md`, `blue-600`, `gray-300`). Full form (multiple, max selected, single-select, native comparison) is in `examples/tailwind/index.html`.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style>
+  ms-multiselect.tw-ms {
+    --ms-font-family: ui-sans-serif, system-ui, sans-serif;
+    --ms-radius: 0.375rem;
+    --ms-accent: #2563eb;
+    --ms-control-bg: #fff;
+    --ms-control-border: 1px solid #d1d5db;
+    --ms-focus-ring: 0 0 0 3px rgb(37 99 235 / 0.2);
+  }
+</style>
+
+<form class="max-w-md">
+  <ms-multiselect
+    class="tw-ms"
     label="Teams"
     placeholder="Select teams"
     name="teams"

@@ -7,6 +7,7 @@ All notable changes to `@poluru-labs/multiselect-kit` are documented in this fil
 ### Added
 
 - Bootstrap 5 example (`examples/bootstrap/index.html`) that themes `ms-multiselect` with Bootstrap form tokens
+- Tailwind CSS example (`examples/tailwind/index.html`) that themes `ms-multiselect` with Tailwind-like tokens
 
 ## [1.0.0] — 2026-08-22
 

@@ -114,3 +114,21 @@ export const Bootstrap: Story = {
       el.value = ['alpha', 'one'];
     }),
 };
+
+export const Tailwind: Story = {
+  render: () =>
+    demo((el, wrap) => {
+      wrap.style.setProperty('--ms-font-family', 'ui-sans-serif, system-ui, sans-serif');
+      wrap.style.setProperty('--ms-radius', '0.375rem');
+      wrap.style.setProperty('--ms-chip-radius', '0.375rem');
+      wrap.style.setProperty('--ms-accent', '#2563eb');
+      wrap.style.setProperty('--ms-accent-soft', '#eff6ff');
+      wrap.style.setProperty('--ms-control-border', '1px solid #d1d5db');
+      wrap.style.setProperty('--ms-control-shadow', '0 1px 2px rgb(0 0 0 / 0.05)');
+      wrap.style.setProperty('--ms-focus-ring', '0 0 0 3px rgb(37 99 235 / 0.2)');
+      wrap.style.setProperty('--ms-chip-bg', '#f3f4f6');
+      el.label = 'Tailwind CSS';
+      el.placeholder = 'Select teams';
+      el.value = ['alpha', 'one'];
+    }),
+};

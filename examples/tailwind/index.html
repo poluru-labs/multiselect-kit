@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>multiselect-kit — Tailwind CSS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      /*
+        Map ms-multiselect to Tailwind defaults so it sits next to
+        rounded-md / border-gray-300 inputs. Copy this block into your app CSS.
+      */
+      ms-multiselect.tw-ms {
+        --ms-font-family: ui-sans-serif, system-ui, sans-serif;
+        --ms-font-size: 0.875rem;
+        --ms-radius: 0.375rem;
+        --ms-chip-radius: 0.375rem;
+        --ms-control-min-height: 2.5rem;
+        --ms-control-padding: 0.25rem 0.5rem;
+        --ms-control-bg: #fff;
+        --ms-control-border: 1px solid #d1d5db;
+        --ms-control-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+        --ms-text: #111827;
+        --ms-muted: #6b7280;
+        --ms-accent: #2563eb;
+        --ms-accent-soft: #eff6ff;
+        --ms-chip-bg: #f3f4f6;
+        --ms-chip-text: #111827;
+        --ms-option-hover: #f9fafb;
+        --ms-option-active: #eff6ff;
+        --ms-list-bg: #fff;
+        --ms-list-border: 1px solid #e5e7eb;
+        --ms-list-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --ms-focus-ring: 0 0 0 3px rgb(37 99 235 / 0.2);
+      }
+
+      ms-multiselect.tw-ms::part(label) {
+        margin-bottom: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      ms-multiselect.tw-ms-sm {
+        --ms-font-size: 0.75rem;
+        --ms-control-min-height: 2rem;
+        --ms-control-padding: 0.125rem 0.375rem;
+      }
+
+      ms-multiselect.tw-ms-lg {
+        --ms-font-size: 1rem;
+        --ms-control-min-height: 3rem;
+        --ms-control-padding: 0.375rem 0.625rem;
+        --ms-radius: 0.5rem;
+      }
+
+      ms-multiselect.is-invalid {
+        --ms-control-border: 1px solid #ef4444;
+        --ms-focus-ring: 0 0 0 3px rgb(239 68 68 / 0.2);
+        --ms-accent: #ef4444;
+      }
+
+      ms-multiselect.is-valid {
+        --ms-control-border: 1px solid #10b981;
+        --ms-focus-ring: 0 0 0 3px rgb(16 185 129 / 0.2);
+      }
+    </style>
+    <script type="module">
+      // In an app with the package installed:
+      import '@poluru-labs/multiselect-kit';
+      // From this repo after `npm run build`, you can also:
+      // import '../../dist/index.js';
+
+      const departments = [
+        { value: 'design', label: 'Design', group: 'Product' },
+        { value: 'eng', label: 'Engineering', group: 'Product', description: 'Platform and apps' },
+        { value: 'ops', label: 'Operations', group: 'Business', disabled: true },
+        { value: 'sales', label: 'Sales', group: 'Business' },
+        { value: 'support', label: 'Support', group: 'Business' },
+      ];
+
+      const skills = [
+        { value: 'typescript', label: 'TypeScript' },
+        { value: 'python', label: 'Python' },
+        { value: 'sql', label: 'SQL' },
+        { value: 'figma', label: 'Figma' },
+        { value: 'k8s', label: 'Kubernetes' },
+      ];
+
+      const regions = [
+        { value: 'na', label: 'North America' },
+        { value: 'eu', label: 'Europe' },
+        { value: 'apac', label: 'Asia Pacific' },
+        { value: 'latam', label: 'Latin America' },
+      ];
+
+      const teams = document.querySelector('#teams');
+      const skillsEl = document.querySelector('#skills');
+      const region = document.querySelector('#region');
+      const output = document.querySelector('#output');
+      const form = document.querySelector('#filters');
+
+      teams.options = departments;
+      teams.value = ['eng', 'design'];
+
+      skillsEl.options = skills;
+
+      region.options = regions;
+
+      function render() {
+        const selected = [
+          ...teams.getSelectedOptions().map((o) => o.label),
+          ...skillsEl.getSelectedOptions().map((o) => o.label),
+          ...region.getSelectedOptions().map((o) => o.label),
+        ];
+        output.innerHTML = selected.length
+          ? selected
+              .map(
+                (label) =>
+                  `<span class="mr-1 inline-flex items-center rounded-md bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">${label}</span>`,
+              )
+              .join('')
+          : '<span class="text-sm text-gray-500">Nothing selected</span>';
+      }
+
+      for (const el of [teams, skillsEl, region]) {
+        el.addEventListener('change', render);
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        teams.classList.toggle('is-invalid', teams.getSelectedOptions().length === 0);
+        teams.classList.toggle('is-valid', teams.getSelectedOptions().length > 0);
+        render();
+      });
+
+      render();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-gray-900 antialiased">
+    <main class="mx-auto max-w-xl px-4 py-12">
+      <h1 class="text-xl font-semibold tracking-tight">multiselect-kit + Tailwind CSS</h1>
+      <p class="mt-1 mb-6 text-sm text-gray-500">
+        Theme <code class="rounded bg-slate-200/80 px-1 py-0.5 text-gray-800">ms-multiselect</code>
+        with Tailwind-like tokens so it matches
+        <code class="rounded bg-slate-200/80 px-1 py-0.5 text-gray-800">rounded-md</code>
+        inputs in a standard form.
+      </p>
+
+      <form id="filters" class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <div class="mb-4">
+          <ms-multiselect
+            id="teams"
+            class="tw-ms"
+            label="Departments"
+            placeholder="Select departments"
+            name="departments"
+            searchable
+            clearable
+            multiple
+          ></ms-multiselect>
+          <p class="mt-1.5 text-sm text-gray-500">Searchable chips. Operations is disabled.</p>
+        </div>
+
+        <div class="mb-4">
+          <ms-multiselect
+            id="skills"
+            class="tw-ms tw-ms-sm"
+            label="Skills"
+            placeholder="Pick up to 3"
+            name="skills"
+            searchable
+            max-selected="3"
+          ></ms-multiselect>
+          <p class="mt-1.5 text-sm text-gray-500">
+            Small size via <code class="rounded bg-slate-100 px-1">.tw-ms-sm</code>, capped at 3.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <ms-multiselect
+            id="region"
+            class="tw-ms"
+            label="Region"
+            placeholder="Pick one region"
+            name="region"
+            multiple="false"
+          ></ms-multiselect>
+          <p class="mt-1.5 text-sm text-gray-500">
+            Single-select (<code class="rounded bg-slate-100 px-1">multiple="false"</code>).
+          </p>
+        </div>
+
+        <div class="mb-6">
+          <label class="mb-1.5 block text-sm font-medium text-gray-900" for="native-multi">
+            Native Tailwind
+          </label>
+          <select
+            id="native-multi"
+            class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-3 focus:ring-blue-500/20 focus:outline-none"
+            multiple
+            size="4"
+          >
+            <option>Design</option>
+            <option selected>Engineering</option>
+            <option>Sales</option>
+            <option>Support</option>
+          </select>
+          <p class="mt-1.5 text-sm text-gray-500">
+            Browser <code class="rounded bg-slate-100 px-1">&lt;select multiple&gt;</code> for
+            comparison — no chips or search.
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
+        >
+          Apply filters
+        </button>
+      </form>
+
+      <div class="mt-4">
+        <div class="mb-1 text-xs text-gray-500">Selected from the kit</div>
+        <div id="output"></div>
+      </div>
+    </main>
+  </body>
+</html>

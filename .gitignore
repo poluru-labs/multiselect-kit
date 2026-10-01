@@ -145,3 +145,6 @@ vite.config.ts.timestamp-*
 # Storybook
 storybook-static/
 coverage/
+
+
+.DS_Store

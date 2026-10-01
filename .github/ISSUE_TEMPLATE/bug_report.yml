@@ -1,0 +1,117 @@
+name: Bug report
+description: Something is broken or behaves incorrectly
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please fill out the sections below so we can reproduce and fix it quickly.
+
+        Before opening an issue, confirm you are on a [supported Node.js version](https://github.com/poluru-labs/multiselect-kit/blob/main/CONTRIBUTING.md) and that `npm run verify` passes on `main` if you are contributing a fix.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences describing the problem.
+      placeholder: Multi-select loses focus when removing a chip with Backspace…
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps a maintainer can follow.
+      placeholder: |
+        1. Open Storybook story "…"
+        2. Select two options
+        3. Press Backspace on the last chip
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Selection / value
+        - Keyboard interaction
+        - Accessibility (ARIA, focus, screen reader)
+        - Styling / layout
+        - API / TypeScript types
+        - Build / packaging
+        - Storybook / docs
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      description: npm version of `@poluru-labs/multiselect-kit`, or commit SHA if using the repo directly.
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, and Node.js version (if relevant).
+      placeholder: Chrome 131 / macOS 15, Node 20.18
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Link to a sandbox, branch, or the smallest HTML/Storybook setup that shows the bug. Paste code here if no link.
+      render: shell
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console errors or logs
+      description: Paste relevant errors. Write "None" if there are no errors.
+      render: shell
+
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility details (optional)
+      description: Keyboard steps, screen reader + browser, expected vs actual announcements or focus behavior.
+      placeholder: Write "N/A" if not related to accessibility.
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Screenshots, recordings, or related issues/PRs.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates
+          required: true
+        - label: I can reproduce this on the latest release or `main`
+          required: true

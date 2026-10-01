@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/poluru-labs/multiselect-kit/blob/main/CONTRIBUTING.md
+    about: Local setup, verify commands, and PR expectations
+  - name: Security issue
+    url: mailto:mail.polurus@gmail.com
+    about: Report a security vulnerability privately (do not open a public issue)
